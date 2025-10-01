@@ -1,16 +1,25 @@
-.navbar{
-    display:flex;
-    background-color:black;
-    gap:20px;
-    justify-content:space-around;
-    padding:10px;
-
-    
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    position: fixed;   /* makes it sticky */
+    top: 0;
+    width: 100%;
+    background: transparent; /* transparent initially */
+    transition: background 0.3s ease;
+    z-index: 1000;
 }
+.navbar.scrolled {
+    background: black; /* background appears after scroll */
+}
+
 .nav-left{
     display:flex;
     gap:20px;
     margin-right:25px;
+      align-items: center;  /* vertically center items */
+    padding:5px 10px;
     
 }
 .nav-right{
@@ -27,16 +36,31 @@ html, body {
 .dropdown {
   position: relative;
   display: inline-block;
-  margin-top:10px;
+}
+/* Add chevron arrow to dropdown button */
+.dropbtn::after {
+  content: "";
+  display: inline-block;
+  margin-left: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0; /* creates an L-shape */
+  padding: 4px;              /* arrow size */
+  transform: rotate(45deg);  /* points down */
+  transition: transform 0.3s ease;
+}
+
+/* Rotate arrow when dropdown is open (hover) */
+.dropdown:hover .dropbtn::after {
+  transform: rotate(-135deg); /* points up */
 }
 
 .dropbtn {
   color: white;
-  font-size: 20px;
+  font-size: 15px;   /* match with .navbar a */
   padding: 10px 20px;
   text-decoration: none;
   cursor: pointer;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:  Inter-Variable, Helvetica, Arial, sans-serif;
 }
 
 .dropdown-content {
@@ -68,9 +92,9 @@ html, body {
     text-decoration:none;
     color:white;
     font-weight:normal;
-    font-size:20px;
+    font-size:15px;
     padding:10px 20px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Inter-Variable, Helvetica, Arial, sans-serif;
 
 }
 .start{
@@ -101,12 +125,12 @@ html, body {
 .dynamic-sentence {
   margin-top: 10px; 
 }
-h2{
+/* h2{
     p {
   margin: 3px 0; }
 }
 p {
-  margin: 5px 0; }
+  margin: 5px 0; } */
 .rounded-block{
     background-color:black;
       border-top-left-radius: 60px;   /* only top corners */
@@ -123,9 +147,15 @@ p {
 }
 .rounded-text{
     color:white;
-    font-family: Arial;
+    font-family: "Gill Sans", sans-serif;
+
+    letter-spacing:2px;
     font-size:30px;
-    text-align:center;
+    text-align:left;
+    margin-left:90px;
+      font-weight: 200; /* Try 200 or 100 if the font supports it */
+
+
 }.carousel-container {
     margin-top: 50px;
   width: 100%;
@@ -140,6 +170,7 @@ p {
 .card {
   flex: 0 0 33.33%;  /* each card takes 1/3 of container */
   padding: 10px;
+  
 }
 
 .card img {
@@ -147,6 +178,7 @@ p {
   height: 200px;
   object-fit: cover;
   border-radius: 10px;
+  margin-left:30px;
 }
 .text{
     display:flex;
@@ -161,12 +193,14 @@ p {
     color:white;
     font-family: Arial, Helvetica, sans-serif;  
     font-size:20px;
+    margin-right:40px;
 }
 .left-text{
     text-align:left;
     color:white;
-    font-family: Arial, Helvetica;  
-    font-size:30px;
+    font-family: NeueHaasGrotesk,Arial, Helvetica;  
+    font-size:25px;
+    margin-left:40px;
 }
 .carousel-container1 {
 width=100%;
@@ -184,6 +218,8 @@ width=100%;
   width: 100%;         /* fit to parent card */
   height: 250px;
   object-fit: cover;
+  margin-left:20px;
+  margin-right:20px;
 }
 .text3{
     display:flex;
@@ -218,12 +254,14 @@ width=100%;
 }
 
 .carousel-track3 {
+  margin-left:80px;
   display: flex;
-  justify-content:space-around;
-  transition: transform 0.5s ease; /* smooth slide */
-  gap:10px;
-
+  items-align: center;
+  justify-content: flex-start; /* cards stick together from the left */
+  transition: transform 0.5s ease;
+  gap: 10px;  /* only 10px gap between cards */
 }
+
 .card3 {
   background-color:  #052E2E;
   gap:1px;   /* each card has its own background */
@@ -258,24 +296,25 @@ width=100%;
   width: 100%;
   height: 400px;
   position: relative;
-    background-repeat: repeat-x;
-    
-
+  mask-image: linear-gradient(to bottom, black 80, black 30%, black 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
 }
 
-.moving-image img {
-    border-radius:10px;
-  position: absolute;
-  width:100%;
-  top: 0;
-  left: 0;
+.image-track {
+  display: flex;
+  width: max-content; 
+  animation: slide 20s linear infinite;
+}
+
+.image-track img {
+  width: 100%;
   height: 100%;
-  animation: slide 20s linear infinite alternate;
+  object-fit: cover;
 }
 
 @keyframes slide {
   from { transform: translateX(0); }
-  to { transform: translateX(100%); }
+  to { transform: translateX(-50%); } /* move left */
 }
 
  .overlay-text {
@@ -429,4 +468,26 @@ width=100%;
 .custom-list li {
   margin: 10px 0;          /* small gap between items (adjust if needed) */
   font-size: 20px;
+}
+.earth-container {
+    width: 300px;       /* adjust size */
+    height: 300px;
+    perspective: 1000px; /* needed for 3D rotation */
+    margin-left: 20px;   /* align to left */
+    margin-top: 20px;
+}
+
+.earth-3d {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;   /* circular shape */
+    transform-style: preserve-3d;
+    animation: rotateEarth 20s linear infinite;
+}
+
+/* 3D rotation animation */
+@keyframes rotateEarth {
+    from { transform: rotateY(deg); }
+    to { transform: rotateY(360deg); }
 }
